@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>ToDo</title>
+</head>
+<body>
+    <body>
+        <div class="flex-container">
+            <header>
+                <h1>Todo Application</h1>
+            </header>
+            <main id="app">
+                <div class="head">
+                    <h2>Daily schedule</h2>
+                </div>
+                <div class="todo-list-container">
+                    <div class="todo-message">
+                        No tasks added yet
+                    </div>
+                    <ul id="todo-list">
+                            <li class="todo-item">
+                                    <input class="checkbox" type="checkbox">
+                                    <label class="title">Изучить JavaScript</label>
+                                    <input class="textfield" type="text">
+                                    <button class="edit">Изменить</button>
+                                    <button class="delete">Удалить</button>
+                                </li>
+                    </ul>
+                    <form id="todo-form">
+                        <input id="add-input" type="text" placeholder="Enter what you should to do">
+                        <button id="add-button" type="submit">Add</button>
+                    </form>
+                </div>
+            </main>
+            <footer>
+                <p>&copy Lorem ipsum copyright</p>
+            </footer>
+        </div>
+        <script src="app.js" defer></script>
+    </body>
+</body>
+</html>
