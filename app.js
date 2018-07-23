@@ -1,3 +1,6 @@
+window.onload = function () {
+    render();
+}
 let model = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
 const todoForm = document.querySelector('#todo-form');
 const addInput = document.querySelector('#add-input');
@@ -155,4 +158,3 @@ function createListItem () {
         todoList.appendChild(listItem);
     }
 }
-render(model);
