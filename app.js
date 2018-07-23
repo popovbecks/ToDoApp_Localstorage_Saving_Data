@@ -53,7 +53,6 @@ function updateItem (event) {
     
     if(model[index].isEditing) {
         model[index].title = textField.value;
-        alert(1)
     }
     model[index].isEditing = !model[index].isEditing;
     render(model);
