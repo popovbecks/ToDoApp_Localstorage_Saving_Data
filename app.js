@@ -19,7 +19,6 @@ function addItemToDataBase (event) {
         title: addInput.value
     }
     model.push(itemObject);
-    localStorage.setItem('items', JSON.stringify(model));
     addInput.value = '';
     console.log(model);
     render(model);
@@ -62,7 +61,6 @@ function toggleTodoItem (event) {
     }
     console.log(model[index].ifChecked)
     console.log(model);
-    //localStorage.setItem('items', JSON.stringify(model));
     render(model);
 }
 
@@ -76,10 +74,6 @@ function render (initialModel) {
         todoMessage.classList.remove("hide");
     }
     localStorage.setItem('items', JSON.stringify(model));
-}
-
-function findListItem (id) {
-    return todoList.querySelector(`[data-id = "${id}"]`);
 }
 
 function generateID(length) {
@@ -144,7 +138,7 @@ function createListItem () {
         }, 'Delete');
 
         const listItem = createElement('li', {
-            className: 'todo-item'
+            className: checkbox.checked ? 'todo-item completed': 'todo-item'
         }, checkbox, label, editInput, editButton, deleteButton);
         listItem.setAttribute('data-id', model[i].id)
         todoList.appendChild(listItem);
