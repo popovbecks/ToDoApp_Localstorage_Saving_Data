@@ -68,7 +68,6 @@ function toggleTodoItem (event) {
     render(model);
 }
 
-<<<<<<< HEAD
 function render (initialModel) {
     let model = initialModel;
     removeAllChildren(todoList);
@@ -150,6 +149,3 @@ function createListItem () {
         todoList.appendChild(listItem);
     }
 }
-=======
-export {  }
->>>>>>> c4c38575b71dcc5ec39d876e6a59c17e7acdad82
