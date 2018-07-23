@@ -4,6 +4,17 @@ window.onload = function () {
 }
 
 let model = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+const todoForm = document.querySelector('#todo-form');
+const addInput = document.querySelector('#add-input');
+const todoList = document.querySelector('#todo-list');
+const todoItems = document.querySelectorAll('.todo-item');
+const message = document.querySelector('.todo-message');
+const todoMessage = document.querySelector('.todo-message');
+localStorage.setItem('items', JSON.stringify(model));
+todoForm.addEventListener('submit', addItemToDataBase);
+todoList.addEventListener('click', deleteItemFromDB);
+todoList.addEventListener('click', toggleTodoItem);
+todoList.addEventListener('click', updateItem)
 
 function addItemToDataBase (event) {
     event.preventDefault();
@@ -149,3 +160,4 @@ function createListItem () {
         todoList.appendChild(listItem);
     }
 }
+
