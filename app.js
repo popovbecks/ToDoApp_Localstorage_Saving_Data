@@ -9,6 +9,7 @@ localStorage.setItem('items', JSON.stringify(model));
 todoForm.addEventListener('submit', addItemToDataBase);
 todoList.addEventListener('click', deleteItemFromDB);
 todoList.addEventListener('click', toggleTodoItem);
+todoList.addEventListener('click', updateItem)
 
 function addItemToDataBase (event) {
     event.preventDefault();
@@ -16,11 +17,11 @@ function addItemToDataBase (event) {
     let itemObject = {
         ifChecked: '',
         id: generateID(5),
-        title: addInput.value
+        title: addInput.value,
+        isEditing: false
     }
     model.push(itemObject);
     addInput.value = '';
-    console.log(model);
     render(model);
 }
 
@@ -30,19 +31,31 @@ function deleteItemFromDB (event) {
     let ids = model.map(item=> {
         return item.id;
     })
-
-   
     let index = ids.indexOf(ItemId);
     if(index != -1) {
         model.splice(index, 1)
     }
-    
     ids = model.map(item=> {
         return item.id;
     })
-    console.log(model);
-    console.log(ids);
-    //localStorage.setItem('items', JSON.stringify(model));
+    render(model);
+}
+
+function updateItem (event) {
+    if(!event.target.classList.contains('edit')) return;
+    let listItem = event.target.parentNode;
+    let textField = listItem.querySelector('.textfield');
+    let listItemId = listItem.getAttribute('data-id');
+    let ids = model.map(item=> {
+        return item.id;
+    });
+    let index = ids.indexOf(listItemId);
+    
+    if(model[index].isEditing) {
+        model[index].title = textField.value;
+        alert(1)
+    }
+    model[index].isEditing = !model[index].isEditing;
     render(model);
 }
 
@@ -59,14 +72,12 @@ function toggleTodoItem (event) {
     }else {
         model[index].ifChecked = ''
     }
-    console.log(model[index].ifChecked)
-    console.log(model);
     render(model);
 }
 
 function render (initialModel) {
     let model = initialModel;
-    removeAllChilds(todoList);
+    removeAllChildren(todoList);
     if(model.length) {
         createListItem();
         todoMessage.classList.add('hide');
@@ -87,7 +98,7 @@ function generateID(length) {
     return text
 }
 
-function removeAllChilds (rootElement) {
+function removeAllChildren (rootElement) {
     while(rootElement.firstChild) rootElement.removeChild(rootElement.firstChild)
 }
 
@@ -109,10 +120,10 @@ function createElement(tag, props, ...children) {
     }
     return element;
 }
-function getIds () {}
 
 function createListItem () {
-    removeAllChilds(todoList);
+    removeAllChildren(todoList);
+
     for (let i = 0; i < model.length; i++) {
         const checkbox = createElement('input', {
             type: 'checkbox',
@@ -126,19 +137,20 @@ function createListItem () {
 
         const editInput = createElement('input', {
             type: 'text',
-            className: 'textfield'
+            className: 'textfield',
+            value: model[i].isEditing ? model[i].title : ''
         });
 
         const editButton = createElement('button', {
             className: 'edit'
-        }, 'Change');
+        }, model[i].isEditing ? 'Save': 'Change');
 
         const deleteButton = createElement('button', {
             className: 'delete'
         }, 'Delete');
 
         const listItem = createElement('li', {
-            className: checkbox.checked ? 'todo-item completed': 'todo-item'
+            className: checkbox.checked ? 'todo-item completed': model[i].isEditing ? 'todo-item editing': 'todo-item'
         }, checkbox, label, editInput, editButton, deleteButton);
         listItem.setAttribute('data-id', model[i].id)
         todoList.appendChild(listItem);
