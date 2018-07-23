@@ -8,6 +8,7 @@ const todoMessage = document.querySelector('.todo-message');
 localStorage.setItem('items', JSON.stringify(model));
 todoForm.addEventListener('submit', addItemToDataBase);
 todoList.addEventListener('click', deleteItemFromDB);
+todoList.addEventListener('click', toggleTodoItem);
 
 function addItemToDataBase (event) {
     event.preventDefault();
@@ -42,7 +43,26 @@ function deleteItemFromDB (event) {
     })
     console.log(model);
     console.log(ids);
-    localStorage.setItem('items', JSON.stringify(model));
+    //localStorage.setItem('items', JSON.stringify(model));
+    render(model);
+}
+
+function toggleTodoItem (event) {
+    if(!event.target.classList.contains('checkbox')) return;
+    let listItem = event.target.parentNode;
+    let listItemId = listItem.getAttribute('data-id');
+    let ids = model.map(item=> {
+        return item.id;
+    });
+    let index = ids.indexOf(listItemId);
+    if(!model[index].ifChecked) {
+        model[index].ifChecked = 'checked'
+    }else {
+        model[index].ifChecked = ''
+    }
+    console.log(model[index].ifChecked)
+    console.log(model);
+    //localStorage.setItem('items', JSON.stringify(model));
     render(model);
 }
 
@@ -55,6 +75,11 @@ function render (initialModel) {
     }else {
         todoMessage.classList.remove("hide");
     }
+    localStorage.setItem('items', JSON.stringify(model));
+}
+
+function findListItem (id) {
+    return todoList.querySelector(`[data-id = "${id}"]`);
 }
 
 function generateID(length) {
