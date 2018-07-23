@@ -10,6 +10,7 @@ todoList.addEventListener('click', deleteItemFromDB);
 
 function addItemToDataBase (event) {
     event.preventDefault();
+    if(!addInput.value) return alert("You need to add a task!");
     let itemObject = {
         ifChecked: '',
         id: generateID(5),
