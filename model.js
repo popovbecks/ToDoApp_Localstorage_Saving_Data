@@ -1,13 +1,7 @@
-// import {model, addItemToDataBase, deleteItemFromDB, updateItem, toggleTodoItem} from './model';
- import { addInput, render, eventBind} from './presenter';
-
-
-window.onload = function () {
-    render(model);
-    eventBind();
-}
-
 let model = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+
+//localStorage.setItem('items', JSON.stringify(model));
+
 
 function addItemToDataBase (event) {
     event.preventDefault();
@@ -72,4 +66,4 @@ function toggleTodoItem (event) {
     render(model);
 }
 
-export {  }
+export { model, addItemToDataBase, deleteItemFromDB, updateItem, toggleTodoItem };
