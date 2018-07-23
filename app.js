@@ -4,6 +4,7 @@ const addInput = document.querySelector('#add-input');
 const todoList = document.querySelector('#todo-list');
 const todoItems = document.querySelectorAll('.todo-item');
 const message = document.querySelector('.todo-message');
+const todoMessage = document.querySelector('.todo-message');
 localStorage.setItem('items', JSON.stringify(model));
 todoForm.addEventListener('submit', addItemToDataBase);
 todoList.addEventListener('click', deleteItemFromDB);
@@ -50,6 +51,9 @@ function render (initialModel) {
     removeAllChilds(todoList);
     if(model.length) {
         createListItem();
+        todoMessage.classList.add('hide');
+    }else {
+        todoMessage.classList.remove("hide");
     }
 }
 
